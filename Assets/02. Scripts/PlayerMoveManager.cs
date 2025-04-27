@@ -26,7 +26,7 @@ public class PlayerMoveManager : MonoBehaviour
             rigid = GetComponent<Rigidbody2D>();
         }
 
-        if (_groundLayer == null)
+        if (_groundLayer == 0)
         {
             _groundLayer = LayerMask.GetMask("Road");
         }
