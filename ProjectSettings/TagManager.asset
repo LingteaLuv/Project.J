@@ -41,3 +41,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 1054893769
+    locked: 0
+  - name: Building
+    uniqueID: 3593144191
+    locked: 0
+  - name: Road
+    uniqueID: 2486547785
+    locked: 0
+  - name: Object
+    uniqueID: 3513233659
+    locked: 0
+  - name: Monster
+    uniqueID: 4133060757
+    locked: 0
+  - name: Player
+    uniqueID: 3315112371
+    locked: 0
