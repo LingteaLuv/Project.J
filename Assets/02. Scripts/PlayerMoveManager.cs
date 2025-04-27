@@ -14,10 +14,13 @@ public class PlayerMoveManager : MonoBehaviour
     private bool _isGrounded;
     private bool _jumpPressed;
     private Vector2 _normalVec;
+    public Animator animator;
     
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
+        
         if (rigid == null)
         {
             rigid = GetComponent<Rigidbody2D>();
@@ -35,6 +38,7 @@ public class PlayerMoveManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W) && _isGrounded)
         {
             _jumpPressed = true;
+            animator.SetBool("Jump", true);
         }
 
         CheckGround();
@@ -44,6 +48,7 @@ public class PlayerMoveManager : MonoBehaviour
     {
         Move();
         Jump();
+        jumpCheck();
     }
 
     private void Move()
@@ -58,6 +63,7 @@ public class PlayerMoveManager : MonoBehaviour
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle)); */
             transform.localScale = new Vector3(Mathf.Sign(h), 1, 1);
         }
+        animator.SetFloat("Speed", moveDir.magnitude);
     }
 
     private void CheckGround()
@@ -82,6 +88,20 @@ public class PlayerMoveManager : MonoBehaviour
         {
             rigid.velocity = new Vector2(rigid.velocity.x, jumpForce);
             _jumpPressed = false;
+        }
+    }
+    
+    private void jumpCheck()
+    {
+        if (rigid.velocity.y < 0)
+        {
+            Debug.DrawRay(ground.position, Vector2.down, Color.green);
+            RaycastHit2D rayHit = Physics2D.Raycast(ground.position, Vector2.down, 0.5f);
+            if (rayHit.collider != null)
+            {
+                if(rayHit.distance < 0.01f)
+                    animator.SetBool("Jump", false);
+            }
         }
     }
 }
