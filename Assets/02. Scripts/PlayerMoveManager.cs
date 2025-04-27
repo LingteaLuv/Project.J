@@ -16,7 +16,6 @@ public class PlayerMoveManager : MonoBehaviour
     private Vector2 _normalVec;
     public Animator animator;
     
-
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -48,7 +47,6 @@ public class PlayerMoveManager : MonoBehaviour
     {
         Move();
         Jump();
-        jumpCheck();
     }
 
     private void Move()
@@ -59,8 +57,6 @@ public class PlayerMoveManager : MonoBehaviour
         rigid.velocity = new Vector2(moveDir.x, rigid.velocity.y);
         if (h != 0)
         {
-            /*float angle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle)); */
             transform.localScale = new Vector3(Mathf.Sign(h), 1, 1);
         }
         animator.SetFloat("Speed", moveDir.magnitude);
@@ -68,7 +64,7 @@ public class PlayerMoveManager : MonoBehaviour
 
     private void CheckGround()
     {
-        RaycastHit2D hit = Physics2D.Raycast(ground.position, Vector2.down, 0.8f, _groundLayer);
+        RaycastHit2D hit = Physics2D.Raycast(ground.position, Vector2.down, 0.4f, _groundLayer);
         if (hit.collider != null)
         {
             _isGrounded = true;
@@ -88,20 +84,7 @@ public class PlayerMoveManager : MonoBehaviour
         {
             rigid.velocity = new Vector2(rigid.velocity.x, jumpForce);
             _jumpPressed = false;
-        }
-    }
-    
-    private void jumpCheck()
-    {
-        if (rigid.velocity.y < 0)
-        {
-            Debug.DrawRay(ground.position, Vector2.down, Color.green);
-            RaycastHit2D rayHit = Physics2D.Raycast(ground.position, Vector2.down, 0.5f);
-            if (rayHit.collider != null)
-            {
-                if(rayHit.distance < 0.01f)
-                    animator.SetBool("Jump", false);
-            }
+            animator.SetBool("Jump", false);
         }
     }
 }
