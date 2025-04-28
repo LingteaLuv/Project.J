@@ -7842,6 +7842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476d0080686622443afff6a4ec7684f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rigid: {fileID: 0}
   talismanBomb: {fileID: 3487302275212504891, guid: 8d731848e0f810f4882b67aa2b305a48, type: 3}
   talismanTeleport: {fileID: 3655522762298223619, guid: cb859db4ac2b0204bbb8386db802adab, type: 3}
   spawnPos: {fileID: 122687264}
