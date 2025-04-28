@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerMoveManager : MonoBehaviour
 {
@@ -9,28 +10,18 @@ public class PlayerMoveManager : MonoBehaviour
     [SerializeField] private Rigidbody2D rigid;
     [SerializeField] private float jumpForce;
     [SerializeField] private Transform ground;
-    [SerializeField] private LayerMask _groundLayer;
+    [SerializeField] private LayerMask groundLayer;
 
     private bool _isGrounded;
     private bool _jumpPressed;
     private Vector2 _normalVec;
     public Animator animator;
     
-
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        
-        if (rigid == null)
-        {
-            rigid = GetComponent<Rigidbody2D>();
-        }
 
-        if (_groundLayer == null)
-        {
-            _groundLayer = LayerMask.GetMask("Road");
-        }
-        
+        Init();
     }
     
     private void Update()
@@ -48,7 +39,6 @@ public class PlayerMoveManager : MonoBehaviour
     {
         Move();
         Jump();
-        jumpCheck();
     }
 
     private void Move()
@@ -59,8 +49,6 @@ public class PlayerMoveManager : MonoBehaviour
         rigid.velocity = new Vector2(moveDir.x, rigid.velocity.y);
         if (h != 0)
         {
-            /*float angle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle)); */
             transform.localScale = new Vector3(Mathf.Sign(h), 1, 1);
         }
         animator.SetFloat("Speed", moveDir.magnitude);
@@ -68,7 +56,7 @@ public class PlayerMoveManager : MonoBehaviour
 
     private void CheckGround()
     {
-        RaycastHit2D hit = Physics2D.Raycast(ground.position, Vector2.down, 0.8f, _groundLayer);
+        RaycastHit2D hit = Physics2D.Raycast(ground.position, Vector2.down, 0.4f, groundLayer);
         if (hit.collider != null)
         {
             _isGrounded = true;
@@ -78,7 +66,6 @@ public class PlayerMoveManager : MonoBehaviour
         {
             _isGrounded = false;
             _normalVec = Vector2.up;
-            rigid.gravityScale = 3f;
         }
     }
     
@@ -88,20 +75,22 @@ public class PlayerMoveManager : MonoBehaviour
         {
             rigid.velocity = new Vector2(rigid.velocity.x, jumpForce);
             _jumpPressed = false;
+            animator.SetBool("Jump", false);
         }
     }
-    
-    private void jumpCheck()
+
+    private void Init()
     {
-        if (rigid.velocity.y < 0)
+        rigid.gravityScale = 3f;
+       
+        if (rigid == null)
         {
-            Debug.DrawRay(ground.position, Vector2.down, Color.green);
-            RaycastHit2D rayHit = Physics2D.Raycast(ground.position, Vector2.down, 0.5f);
-            if (rayHit.collider != null)
-            {
-                if(rayHit.distance < 0.01f)
-                    animator.SetBool("Jump", false);
-            }
+            rigid = GetComponent<Rigidbody2D>();
+        }
+        
+        if (groundLayer == 0)
+        {
+            groundLayer = LayerMask.GetMask("Road");
         }
     }
 }
