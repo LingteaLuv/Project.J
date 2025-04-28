@@ -7843,9 +7843,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   talismanBomb: {fileID: 3487302275212504891, guid: 8d731848e0f810f4882b67aa2b305a48, type: 3}
-  talismanTeleport: {fileID: 0}
+  talismanTeleport: {fileID: 3655522762298223619, guid: cb859db4ac2b0204bbb8386db802adab, type: 3}
   spawnPos: {fileID: 122687264}
-  moveSpeed: 10
+  bombMoveSpeed: 8
+  teleportMoveSpeed: 10
 --- !u!1 &918653933
 GameObject:
   m_ObjectHideFlags: 0
@@ -8341,6 +8342,10 @@ PrefabInstance:
     - target: {fileID: 6912315681639389160, guid: f4fcd2e00e1047943ac49692f092d5aa, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7018373207818897602, guid: f4fcd2e00e1047943ac49692f092d5aa, type: 3}
+      propertyPath: jumpForce
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7018373207818897602, guid: f4fcd2e00e1047943ac49692f092d5aa, type: 3}
       propertyPath: _groundLayer.m_Bits
