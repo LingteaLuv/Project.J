@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerMoveManager : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class PlayerMoveManager : MonoBehaviour
     [SerializeField] private Rigidbody2D rigid;
     [SerializeField] private float jumpForce;
     [SerializeField] private Transform ground;
-    [SerializeField] private LayerMask _groundLayer;
+    [SerializeField] private LayerMask groundLayer;
 
     private bool _isGrounded;
     private bool _jumpPressed;
@@ -19,17 +20,8 @@ public class PlayerMoveManager : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        
-        if (rigid == null)
-        {
-            rigid = GetComponent<Rigidbody2D>();
-        }
 
-        if (_groundLayer == 0)
-        {
-            _groundLayer = LayerMask.GetMask("Road");
-        }
-        
+        Init();
     }
     
     private void Update()
@@ -64,7 +56,7 @@ public class PlayerMoveManager : MonoBehaviour
 
     private void CheckGround()
     {
-        RaycastHit2D hit = Physics2D.Raycast(ground.position, Vector2.down, 0.4f, _groundLayer);
+        RaycastHit2D hit = Physics2D.Raycast(ground.position, Vector2.down, 0.4f, groundLayer);
         if (hit.collider != null)
         {
             _isGrounded = true;
@@ -74,7 +66,6 @@ public class PlayerMoveManager : MonoBehaviour
         {
             _isGrounded = false;
             _normalVec = Vector2.up;
-            rigid.gravityScale = 3f;
         }
     }
     
@@ -85,6 +76,21 @@ public class PlayerMoveManager : MonoBehaviour
             rigid.velocity = new Vector2(rigid.velocity.x, jumpForce);
             _jumpPressed = false;
             animator.SetBool("Jump", false);
+        }
+    }
+
+    private void Init()
+    {
+        rigid.gravityScale = 3f;
+       
+        if (rigid == null)
+        {
+            rigid = GetComponent<Rigidbody2D>();
+        }
+        
+        if (groundLayer == 0)
+        {
+            groundLayer = LayerMask.GetMask("Road");
         }
     }
 }

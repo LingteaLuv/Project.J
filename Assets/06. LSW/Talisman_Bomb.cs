@@ -9,10 +9,18 @@ public class TalismanBomb : MonoBehaviour
     [SerializeField] private float liveTime;
     [SerializeField] private LayerMask ignoreLayer;
     private float _timer;
-    // Start is called before the first frame update
+
+    private Animator _animator;
+
+    private void Awake()
+    {
+        Init();
+    }
+    
     private void OnEnable()
     {
         _timer = 0;
+        //_animator.SetBool(0, true);
     }
 
     private void Update()
@@ -29,5 +37,10 @@ public class TalismanBomb : MonoBehaviour
         if (other.gameObject.layer == ignoreLayer) return;
         
         Destroy(gameObject);
+    }
+
+    private void Init()
+    {
+        _animator = GetComponent<Animator>();
     }
 }
