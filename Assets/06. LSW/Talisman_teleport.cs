@@ -25,8 +25,7 @@ public class TalismanTeleport : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.layer == ignoreLayer) return;
-        
+        // if (other.gameObject.layer == ignoreLayer) return;
         Destroy(gameObject);
     }
 }

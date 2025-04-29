@@ -16,6 +16,10 @@ public class GunManager : MonoBehaviour
     [SerializeField] private float bombMoveSpeed;
     // 이동 부적 날아가는 속도
     [SerializeField] private float teleportMoveSpeed;
+    // teleport 이펙트 프리팹
+    [SerializeField] private GameObject effectPrefab;
+    // teleport 잔상 프리팹
+    [SerializeField] private GameObject afterImage;
     // 폭발 부적 발사 여부
     private bool _isBombFiring;
     // 이동 부적 발사 여부
@@ -89,7 +93,18 @@ public class GunManager : MonoBehaviour
     {
         if (_instance != null)
         {
+            if (transform.localScale.x >= 0)
+            {
+                Instantiate(afterImage, (transform.position - new Vector3(0,0.4f,0)), transform.rotation);
+            }
+            else
+            {
+                afterImage.transform.localScale = new Vector3(-1, 1, 1);
+                Instantiate(afterImage, (transform.position - new Vector3(0,0.4f,0)), transform.rotation);
+                afterImage.transform.localScale = new Vector3(1, 1, 1);
+            }
             transform.position = _instance.transform.position;
+            Instantiate(effectPrefab, (transform.position - new Vector3(0,0.8f,0)), Quaternion.identity);
             rigid.velocity = Vector2.zero;
             if (_zeroGravityRoutine != null)
             {

@@ -8,9 +8,8 @@ public class TalismanBomb : MonoBehaviour
     //[SerializeField] private GameObject talismanPrefab;
     [SerializeField] private float liveTime;
     [SerializeField] private LayerMask ignoreLayer;
+    [SerializeField] private GameObject effectPrefab;
     private float _timer;
-
-    private Animator _animator;
 
     private void Awake()
     {
@@ -20,7 +19,6 @@ public class TalismanBomb : MonoBehaviour
     private void OnEnable()
     {
         _timer = 0;
-        //_animator.SetBool(0, true);
     }
 
     private void Update()
@@ -34,13 +32,13 @@ public class TalismanBomb : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.layer == ignoreLayer) return;
-        
+        //if (other.gameObject.layer == ignoreLayer) return;
+        Instantiate(effectPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
     private void Init()
     {
-        _animator = GetComponent<Animator>();
+        
     }
 }

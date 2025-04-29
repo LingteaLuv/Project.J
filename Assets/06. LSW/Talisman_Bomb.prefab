@@ -166,6 +166,7 @@ MonoBehaviour:
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 8
+  effectPrefab: {fileID: 401859927149767984, guid: 2c68ba5a080270f47a66258dc23200df, type: 3}
 --- !u!95 &8137719078574627187
 Animator:
   serializedVersion: 5
