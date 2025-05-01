@@ -5,28 +5,39 @@ using UnityEngine.Serialization;
 
 public class GunManager : MonoBehaviour
 {
+    [Header("Drag&Drop")]
+    [Tooltip("Rigidbody2D")]
     [SerializeField] private Rigidbody2D rigid;
-    // 폭발 부적
+    [Tooltip("T_Bomb")]
     [SerializeField] private TalismanBomb talismanBomb;
-    // 순간이동 부적
+    [Tooltip("T_Teleport")]
     [SerializeField] private TalismanTeleport talismanTeleport;
-    // 부적 소환 위치
+    [Tooltip("부적 소환 위치")]
     [SerializeField] private Transform spawnPos;
-    // 폭발 부적 날아가는 속도
-    [SerializeField] private float bombMoveSpeed;
-    // 이동 부적 날아가는 속도
-    [SerializeField] private float teleportMoveSpeed;
-    // teleport 이펙트 프리팹
+    [Tooltip("teleport 이펙트 프리팹")]
     [SerializeField] private GameObject effectPrefab;
-    // teleport 잔상 프리팹
+    [Tooltip("teleport 잔상 프리팹")]
     [SerializeField] private GameObject afterImage;
+    
+    [Header("Number")]
+    [Tooltip("폭발 부적 날아가는 속도")]
+    [SerializeField] private float bombMoveSpeed;
+    [Tooltip("이동 부적 날아가는 속도")]
+    [SerializeField] private float teleportMoveSpeed;
+    [Tooltip("이동 부적 쿨타임")]
+    [SerializeField] private float teleportCooldown = 2f;
+
+    // 마지막으로 이동 부적을 날린 시각
+    private float _lastTeleportFireTime = -Mathf.Infinity;
+    
     // 폭발 부적 발사 여부
     private bool _isBombFiring;
     // 이동 부적 발사 여부
     private bool _isTeleportFiring;
+    // 텔레포트 사용 여부
+    private bool _isTeleport;
     private TalismanTeleport _instance;
     private float _originalGravity;
-    // private WaitForSeconds _airTime;
     private Coroutine _zeroGravityRoutine;
     
 
@@ -37,9 +48,14 @@ public class GunManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!_isTeleportFiring && Input.GetMouseButtonDown(0))
         {
-            _isTeleportFiring = true;
+            if (_isTeleport || Time.time > _lastTeleportFireTime + teleportCooldown)
+            {
+                _isTeleport = false;
+                _lastTeleportFireTime = Time.time;
+                _isTeleportFiring = true;
+            }
         }
         
         if (Input.GetMouseButtonDown(1))
@@ -112,6 +128,7 @@ public class GunManager : MonoBehaviour
             }
             _zeroGravityRoutine = StartCoroutine(ZeroGravity());
             Destroy(_instance.gameObject);
+            _isTeleport = true;
         }
     }
 
@@ -133,8 +150,8 @@ public class GunManager : MonoBehaviour
     private void Init()
     {
         _isBombFiring = false;
+        _isTeleportFiring = false;
         rigid = GetComponent<Rigidbody2D>();
-        //_airTime = new WaitForSeconds(0.5f);
         _originalGravity = rigid.gravityScale;
     }
 }
