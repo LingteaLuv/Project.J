@@ -32,6 +32,7 @@ public class MonsterMove : MonoBehaviour
         if (_moveRoutine != null)
         {
             StopCoroutine(_moveRoutine);
+            _moveRoutine = null;
         }
     }
 
