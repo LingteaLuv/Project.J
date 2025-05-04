@@ -42,9 +42,9 @@ public class SpeechController : MonoBehaviour
     private string[] Scripts(int num)
     {
         string[] scripts = new string[num];
-        scripts[0] = "원숭이 강현숭";
-        scripts[1] = "이 몸 등장";
-        scripts[2] = "나를 막을 자는 누구인가";
+        scripts[0] = "원숭이 손오공";
+        scripts[1] = "본인 등장";
+        scripts[2] = "나를 막을 자 누구인가";
         return scripts;
     }
 

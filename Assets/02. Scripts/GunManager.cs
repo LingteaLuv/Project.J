@@ -119,7 +119,7 @@ public class GunManager : MonoBehaviour
                 Instantiate(afterImage, (transform.position - new Vector3(0,0.4f,0)), transform.rotation);
                 afterImage.transform.localScale = new Vector3(1, 1, 1);
             }
-            transform.position = _instance.transform.position;
+            transform.position = _instance.transform.position + new Vector3(0,2.6f,0);
             Instantiate(effectPrefab, (transform.position - new Vector3(0,0.8f,0)), Quaternion.identity);
             rigid.velocity = Vector2.zero;
             if (_zeroGravityRoutine != null)
