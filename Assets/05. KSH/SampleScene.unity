@@ -953,7 +953,7 @@ SpriteRenderer:
   m_Size: {x: 1.28, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &204227156
@@ -8374,9 +8374,9 @@ MonoBehaviour:
   rigid: {fileID: 1399473380}
   jumpForce: 15
   ground: {fileID: 628340308}
-  _groundLayer:
+  groundLayer:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 64
   animator: {fileID: 1399473378}
 --- !u!50 &1399473380
 Rigidbody2D:
@@ -8489,7 +8489,7 @@ SpriteRenderer:
   m_Size: {x: 6, y: 5.25}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1399473383
@@ -11368,7 +11368,7 @@ SpriteRenderer:
   m_Size: {x: 1.28, y: 1.27}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &2125898809
