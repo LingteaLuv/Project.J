@@ -62,6 +62,6 @@ TagManager:
   - name: Talisman
     uniqueID: 3641780983
     locked: 0
-  - name: Script
-    uniqueID: 298147991
+  - name: HpBar
+    uniqueID: 3850773631
     locked: 0
